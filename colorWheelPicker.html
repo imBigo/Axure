@@ -268,12 +268,12 @@
             
             // Add light presets for room
             const roomPresets = [
-                { name: 'Warm White', color: '#FFB746', h: 35, s: 72, b: 100 },
-                { name: 'Cool White', color: '#F5F5FF', h: 240, s: 5, b: 100 },
-                { name: 'Evening', color: '#FF8030', h: 20, s: 81, b: 100 },
-                { name: 'Reading', color: '#FFECDE', h: 30, s: 13, b: 100 },
-                { name: 'Night', color: '#3B48FF', h: 236, s: 100, b: 100 },
-                { name: 'Relax', color: '#9B4AFF', h: 267, s: 71, b: 100 }
+                { name: 'Warm White', color: '#FFB746', h: 35, s: 72 },
+                { name: 'Cool White', color: '#F5F5FF', h: 240, s: 5 },
+                { name: 'Evening', color: '#FF8030', h: 20, s: 81 },
+                { name: 'Reading', color: '#FFECDE', h: 30, s: 13 },
+                { name: 'Night', color: '#3B48FF', h: 236, s: 100 },
+                { name: 'Relax', color: '#9B4AFF', h: 267, s: 71 }
             ];
             
             roomPresets.forEach(preset => {
@@ -284,9 +284,8 @@
                 swatch.addEventListener('click', () => {
                     hue = preset.h;
                     saturation = preset.s;
-                    brightness = preset.b;
-                    
-                    brightnessSlider.value = brightness;
+                    // Keep current brightness value from slider
+                    // brightness remains unchanged
                     
                     // Update warmth slider based on hue
                     const warmthValue = hue < 60 ? 100 - (hue / 60 * 50) : 
