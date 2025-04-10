@@ -144,10 +144,6 @@
             <div class="preview" id="colorPreview"></div>
             <div class="sliders">
                 <div class="slider-container">
-                    <label for="brightness">Brightness</label>
-                    <input type="range" id="brightness" min="0" max="100" value="100">
-                </div>
-                <div class="slider-container">
                     <label for="warmth">Warmth</label>
                     <input type="range" id="warmth" min="0" max="100" value="50">
                 </div>
@@ -171,13 +167,12 @@
             const ctx = canvas.getContext('2d');
             const preview = document.getElementById('colorPreview');
             const hexInput = document.getElementById('hexInput');
-            const brightnessSlider = document.getElementById('brightness');
             const warmthSlider = document.getElementById('warmth');
             const swatchesContainer = document.getElementById('swatches');
             
             let hue = 30; // Default to warm light
             let saturation = 60;
-            let brightness = 100;
+            const brightness = 50; // Fixed brightness value
             
             // Draw smooth color wheel with more segments
             function drawColorWheel() {
@@ -284,8 +279,6 @@
                 swatch.addEventListener('click', () => {
                     hue = preset.h;
                     saturation = preset.s;
-                    // Keep current brightness value from slider
-                    // brightness remains unchanged
                     
                     // Update warmth slider based on hue
                     const warmthValue = hue < 60 ? 100 - (hue / 60 * 50) : 
@@ -346,11 +339,6 @@
             
             canvas.addEventListener('click', handleColorSelection);
             
-            brightnessSlider.addEventListener('input', function() {
-                brightness = parseInt(this.value);
-                updateColor();
-            });
-            
             warmthSlider.addEventListener('input', function() {
                 const warmth = parseInt(this.value);
                 // Convert warmth slider to appropriate hue range
@@ -381,7 +369,6 @@
                     const min = Math.min(r, g, b);
                     const delta = max - min;
                     
-                    brightness = max * 100;
                     saturation = max === 0 ? 0 : delta / max * 100;
                     
                     if (delta === 0) {
@@ -394,8 +381,6 @@
                         hue = Math.round(hue * 60);
                         if (hue < 0) hue += 360;
                     }
-                    
-                    brightnessSlider.value = brightness;
                     
                     // Update warmth slider based on hue
                     const warmthValue = hue < 60 ? 100 - (hue / 60 * 50) : 
